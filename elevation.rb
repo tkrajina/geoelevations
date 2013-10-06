@@ -28,6 +28,10 @@ module Elevations
         def get_elevation(latitude, longitude)
             srtm_file = get_file(latitude, longitude)
 
+            if not srtm_file
+                return nil
+            end
+
             srtm_file.get_elevation(latitude, longitude)
         end
 
@@ -38,6 +42,9 @@ module Elevations
                 file, url = find_file_name_and_url(file_name, 'srtm1')
                 if ! file && ! url
                     file, url = find_file_name_and_url(file_name, 'srtm3')
+                end
+                if ! file && ! url
+                    return nil
                 end
 
                 local_file_name = "#{Elevations::DIR_NAME}/#{file}"
