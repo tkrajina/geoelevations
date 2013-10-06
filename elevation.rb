@@ -1,6 +1,3 @@
-require 'RMagick'
-include Magick
-
 require 'json'
 require 'open-uri'
 require 'zip/zip'
