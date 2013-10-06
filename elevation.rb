@@ -35,7 +35,6 @@ module Elevations
             file_name = get_file_name(latitude, longitude)
 
             if ! @cached_srtm_contents.has_key?(file_name)
-                puts "Retrieving #{file_name}"
                 file, url = find_file_name_and_url(file_name, 'srtm1')
                 if ! file && ! url
                     file, url = find_file_name_and_url(file_name, 'srtm3')
@@ -45,6 +44,7 @@ module Elevations
                 file_contents = nil
                 file_name = file.sub('.zip', '')
                 if ! File.exist?(local_file_name)
+                    puts "Retrieving #{file_name} because #{local_file_name} not found"
                     file_contents = open(url).read
                     open(local_file_name, 'wb').write(file_contents)
                 end
