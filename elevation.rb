@@ -1,7 +1,5 @@
 require 'json'
 require 'open-uri'
-require 'zip/zip'
-require 'zlib'
 
 require_relative 'utils'
 
@@ -22,7 +20,7 @@ module Elevations
             json = Retriever::prepare_folder
             # Dictionary with all files and urls (as is saved in ~/.elevations.rb/list.json)
             @files = JSON.load(json)
-            @cached_srtm_contents = {}
+            @cached_srtm_files = {}
         end
 
         def get_elevation(latitude, longitude)
@@ -38,31 +36,33 @@ module Elevations
         def get_file(latitude, longitude)
             file_name = get_file_name(latitude, longitude)
 
-            if ! @cached_srtm_contents.has_key?(file_name)
-                file, url = find_file_name_and_url(file_name, 'srtm1')
-                if ! file && ! url
-                    file, url = find_file_name_and_url(file_name, 'srtm3')
-                end
-                if ! file && ! url
-                    return nil
-                end
-
-                local_file_name = "#{Elevations::DIR_NAME}/#{file}"
-                file_contents = nil
-                file_name = file.sub('.zip', '')
-                if ! File.exist?(local_file_name)
-                    puts "Retrieving #{file_name} because #{local_file_name} not found"
-                    file_contents = open(url).read
-                    open(local_file_name, 'wb').write(file_contents)
-                end
-
-                file_contents = Elevations::Utils::unzip(local_file_name, file_name)
-                file_contents = file_contents.bytes.to_a
-
-                @cached_srtm_contents[file_name] = file_contents
+            if @cached_srtm_files.has_key?(file_name)
+                return @cached_srtm_files[file_name]
             end
 
-            Elevations::SrtmFile.new(file_name, @cached_srtm_contents[file_name])
+            file, url = find_file_name_and_url(file_name, 'srtm1')
+            if ! file && ! url
+                file, url = find_file_name_and_url(file_name, 'srtm3')
+            end
+            if ! file && ! url
+                @cached_srtm_files[file_name] = nil
+                return nil
+            end
+
+            file_name = file.sub('.zip', '')
+            local_file_name = "#{Elevations::DIR_NAME}/#{file_name}"
+            if ! File.exist?(local_file_name)
+                puts "Retrieving #{file_name} because #{local_file_name} not found"
+                file_contents = open(url).read
+                file_contents = Elevations::Utils::unzip(file_contents, file_name)
+                open(local_file_name, 'wb').write(file_contents)
+            end
+
+            file = Elevations::SrtmFile.new(local_file_name)
+
+            @cached_srtm_files[file_name] = file
+
+            file
         end
 
         def find_file_name_and_url(file_name, srtm_version)
@@ -87,20 +87,17 @@ module Elevations
 
             "#{north_south}#{lat}#{east_west}#{lon}.hgt"
         end
-
     end
 
     class SrtmFile
-        def initialize(file_name, file_contents)
-            @contents = file_contents
-            @square_side = Math.sqrt(@contents.length / 2)
-            @file_name = file_name
+        def initialize(local_file_name)
+            @local_file_name = local_file_name
+            @file = open(@local_file_name)
+            size = File.size?(@local_file_name)
+            @square_side = Math.sqrt(size / 2)
 
-            if ! file_contents
-                raise "Invalid file #{file_name}"
-            end
             if @square_side != @square_side.to_i
-                raise "Invalid file size #{@contents.length}"
+                raise "Invalid file size #{size}"
             end
             
             parse_file_name_starting_position()
@@ -108,7 +105,7 @@ module Elevations
 
         # Returns (latitude, longitude) of lower left point of the file
         def parse_file_name_starting_position()
-            groups = @file_name.scan(/([NS])(\d+)([EW])(\d+)\.hgt/)[0]
+            groups = @local_file_name.scan(/([NS])(\d+)([EW])(\d+)\.hgt/)[0]
 
             if groups.length != 4
                 raise "Invalid file name #{@file_name}"
@@ -147,10 +144,12 @@ module Elevations
         def get_elevation_from_row_and_column(row, column)
             i = row * (@square_side) + column
 
-            i < @contents.length - 1 or raise "Invalid i=#{i}"
+            i < @square_side ** 2 or raise "Invalid i=#{i}"
 
-            byte_1 = @contents[i * 2].ord
-            byte_2 = @contents[i * 2 + 1].ord
+            @file.seek(i * 2)
+            bytes = @file.read(2)
+            byte_1 = bytes[0].ord
+            byte_2 = bytes[1].ord
 
             result = byte_1 * 256 + byte_2
 
@@ -244,7 +243,6 @@ module Elevations
 
             result.to_f
         end
-
     end
 
 end
