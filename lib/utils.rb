@@ -42,7 +42,6 @@ module GeoElevation
 
             nil
         end
-
     end
 
     module Retriever
@@ -61,11 +60,7 @@ module GeoElevation
                 open(srtm_urls_file, 'w') { |file| file.write(pretty_json) }
             end
 
-            if ! json
-                json = open(srtm_urls_file, 'rb').read
-            end
-
-            json
+            open(srtm_urls_file, 'r').read
         end
 
         def self.prepare_urls(urls, srtm_version)
