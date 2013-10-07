@@ -47,7 +47,13 @@ The first 700 meters of the track is obviously a measurement error (common for s
 This is because the earth is an ellipsoid but rather a potato :) called geoid.
 The EGM2008 undulations data contains the difference between this potato-ellipsoid and the actual geoid.
 
-Example usage:
+An example image of the world obtained with GeoElevations.rb:
+
+![undulations.png](http://tkrajina.github.io/geoelevations/undulations.png)
+
+In black are part of the world above the ideal (WGS84) ellipsoid, in white below.
+
+Example library usage:
 
     require 'elevation'
 
@@ -61,8 +67,3 @@ The result is:
 
 ..and this is the actual error between the actual SRTM elevations and the GPS recordings from smartphones and GPSes without the EGM undulations database.
 
-An example image of the world obtained with GeoElevations.rb:
-
-![undulations.png](http://tkrajina.github.io/geoelevations/undulations.png)
-
-In black are part of the world above the ideal (WGS84) ellipsoid, in white below.
