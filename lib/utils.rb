@@ -49,7 +49,7 @@ module GeoElevation
         MAX_DEPTH = 3
 
         def self.prepare_folder
-            srtm_urls_file = "#{GeoElevation::DIR_NAME}/list.json"
+            srtm_urls_file = File.join(GeoElevation::DIR_NAME, 'list.json')
             json = nil
 
             if ! File.directory?(GeoElevation::DIR_NAME)

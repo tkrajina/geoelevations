@@ -50,7 +50,7 @@ module GeoElevation
             end
 
             file_name = file.sub('.zip', '')
-            local_file_name = "#{GeoElevation::DIR_NAME}/#{file_name}"
+            local_file_name = File.join(GeoElevation::DIR_NAME, file_name)
             if ! File.exist?(local_file_name)
                 puts "Retrieving #{file_name} because #{local_file_name} not found"
                 file_contents = open(url).read
@@ -171,7 +171,7 @@ module GeoElevation
             json = Retriever::prepare_folder
 
             @file_name = GeoElevation::EGM2008_URL.split('/')[-1]
-            @local_file_name = "#{GeoElevation::DIR_NAME}/#{@file_name}".gsub(/.gz$/, '')
+            @local_file_name = File.join(GeoElevation::DIR_NAME, @file_name.gsub(/.gz$/, ''))
 
             if !File.exists?(@local_file_name)
                 puts "Downloading and ungzipping #{GeoElevation::EGM2008_URL}"
