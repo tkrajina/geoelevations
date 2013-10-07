@@ -68,6 +68,11 @@ The result is:
 
 ..and this is the actual error between the actual SRTM elevations and the GPS recordings from smartphones and GPSes without the EGM undulations database.
 
+## Local cache
+
+All files needed will be downloaded and saved in **~/.elevations.rb** when the library needs them first time.
+Note that there are many files and some are pretty big (for example the EGM undulations file is 143M).
+
 ## License
 
 Geoelevations.rb is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
