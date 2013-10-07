@@ -36,11 +36,11 @@ Sydney:
 
 ## Geo undulations
 
-When you record a GPS track with a smartphone a lot of times the elevation graph will be something like the black line here:
+When you record a GPS track with a smartphone sometimes the elevation graph will differ from the actual elevation:
 
 ![GPX elevations](http://tkrajina.github.io/srtm.py/gpx_elevations.png)
 
-The red line is the data obtained from SRTM. 
+The **black** line is the elevation data from a Samsung smartphone, the red line is the data obtained from SRTM. 
 
 The first 700 meters of the track is obviously a measurement error (common for smartphones), but the rest of the track is recorded cca 40 meters above the actual elevation.
 
