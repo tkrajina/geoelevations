@@ -10,9 +10,9 @@ module GeoElevation
     SRTM3_URL     = '/version2_1/SRTM3/'
     DIR_NAME      = "#{Dir.home}/.elevations.rb"
 
-    #EGM2008_URL   = 'http://earth-info.nga.mil/GandG/wgs84/gravitymod/egm2008/Und_min2.5x2.5_egm2008_isw=82_WGS84_TideFree_SE.gz'
+    EGM2008_URL   = 'http://earth-info.nga.mil/GandG/wgs84/gravitymod/egm2008/Und_min2.5x2.5_egm2008_isw=82_WGS84_TideFree_SE.gz'
     # Test:
-    EGM2008_URL   = 'http://localhost/Und_min2.5x2.5_egm2008_isw=82_WGS84_TideFree_SE.gz'
+    #EGM2008_URL   = 'http://localhost/Und_min2.5x2.5_egm2008_isw=82_WGS84_TideFree_SE.gz'
 
     class Srtm
         def initialize
