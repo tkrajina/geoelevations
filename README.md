@@ -58,7 +58,7 @@ Example library usage:
 
     require 'elevation'
 
-    egm = Elevations::Egm2008.new
+    egm = Elevations::Undulations.new
     undulation = egm.get_undulation(45.276, 13.72)
     puts "The ideal WGS ellipsoid is #{undulation} above the actual geoid" 
 

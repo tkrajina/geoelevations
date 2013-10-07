@@ -165,7 +165,7 @@ module Elevations
     # EGM stands for "Earth Gravitational Model" and is a parser for the 
     # EGM2008 file obtained from 
     # http://earth-info.nga.mil/GandG/wgs84/gravitymod/egm2008/index.html
-    class Egm2008
+    class Undulations
         def initialize
             # Just in case...
             json = Retriever::prepare_folder

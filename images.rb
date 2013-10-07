@@ -38,7 +38,7 @@ module Elevations
     # Return RMagick image with undulations. In black are the positive 
     # values in white the negative. Used for debugging.
     def self.world_undulation_image(width, height)
-        egm = Elevations::Egm2008.new
+        egm = Elevations::Undulations.new
         min, max = 0, 0
 
         file_position = nil

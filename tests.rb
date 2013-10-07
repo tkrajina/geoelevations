@@ -39,12 +39,12 @@ class TestSimpleNumber < Test::Unit::TestCase
     end
  
     def test_egm_first_row_first_column
-        egm = Elevations::Egm2008.new
+        egm = Elevations::Undulations.new
         assert_equal 1489, (egm.get_undulation(90, 0) * 100).to_i
     end
 
     def test_egm_row_change
-        egm = Elevations::Egm2008.new
+        egm = Elevations::Undulations.new
         # The file contains data for every 2.5 minute => every degree has 24 
         # columns and rows:
         assert_equal 1489, (egm.get_undulation(90 - (1 / 24.2), 0) * 100).to_i
@@ -54,7 +54,7 @@ class TestSimpleNumber < Test::Unit::TestCase
     end
 
     def test_egm_column_change
-        egm = Elevations::Egm2008.new
+        egm = Elevations::Undulations.new
         # The file contains data for every 2.5 minute => every degree has 24 
         # columns and rows:
         assert_equal 4268, (egm.get_undulation(45, 13 - (1 / 24.2)) * 100).to_i
