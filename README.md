@@ -43,8 +43,9 @@ When you record a GPS track with a smartphone sometimes the elevation graph will
 The **black** line is the elevation data from a Samsung smartphone, the red line is the data obtained from SRTM. 
 
 The first 700 meters of the track is obviously a measurement error (common for smartphones), but the rest of the track is recorded cca 40 meters above the actual elevation.
+Smartphones and cheaper GPS deviced don't have the entire database of the **Earth undulations** and that's the reason for the error on the graph.
 
-This is because the earth is **not** an ellipsoid but rather a potato :) called geoid.
+The earth is **not** an ellipsoid but rather a potato :) called geoid.
 The EGM2008 undulations data contains the difference between this potato-geoid and the ideal ellipsoid.
 
 An example image of the world obtained with GeoElevations.rb from the EGM2008 dataset:
