@@ -34,7 +34,7 @@ Sydney:
 
 ![sidney.png](http://tkrajina.github.io/geoelevations/sidney.png)
 
-## Geo undulations
+## Geoid undulations
 
 When you record a GPS track with a smartphone sometimes the elevation graph will differ from the actual elevation:
 
@@ -43,10 +43,10 @@ When you record a GPS track with a smartphone sometimes the elevation graph will
 The **black** line is the elevation data from a Samsung smartphone, the red line is the data obtained from SRTM. 
 
 The first 700 meters of the track is obviously a measurement error (common for smartphones), but the rest of the track is recorded cca 40 meters above the actual elevation.
-Smartphones and cheaper GPS deviced don't have the entire database of the **Earth undulations** and that's the reason for the error on the graph.
 
-The earth is **not** an ellipsoid but rather a potato :) called geoid.
-The EGM2008 undulations data contains the difference between this potato-geoid and the ideal ellipsoid.
+GPS technology is integrated in most of the smartphones currently available on today market. It is well known that GPS provides an ellipsoidal height with respect to WGS84 ellipsoid. For everyday use, this height is not sufficient as it is based on mathematical model not the real height (above the sea level), also called orthometric height. That is the main reason for the height difference in graph above. The earth is **not** an ellipsoid but rather a potato :) called geoid. GPS height must be converted to the orthometric height and this requires information about geoid undulation. Geoid undulations are calculated from earth gravity models like EGM96 or EGM2008 and is basically a difference between this potato-geoid and the mathematical ellipsoid (WGS84).
+
+Some GPS devices and smarthphones do provide EGM96 geoid undulation information but applications that capture that data do not record it. EGM2008 is newer and more accurate version of earth gravity model.
 
 An example image of the world obtained with GeoElevations.rb from the EGM2008 dataset:
 
