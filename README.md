@@ -66,3 +66,7 @@ The result is:
     The ideal WGS ellipsoid is 45.049991607666016 above the actual geoid 
 
 ..and this is the actual error between the actual SRTM elevations and the GPS recordings from smartphones and GPSes without the EGM undulations database.
+
+## License
+
+Geoelevations.rb is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
