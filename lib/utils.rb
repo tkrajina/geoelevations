@@ -2,7 +2,7 @@ require 'tempfile'
 require 'zip/zip'
 require 'zlib'
 
-module Elevations
+module GeoElevation
     module Utils
         def self.get_common_string_start(urls)
             if ! urls
@@ -49,11 +49,11 @@ module Elevations
         MAX_DEPTH = 3
 
         def self.prepare_folder
-            srtm_urls_file = "#{Elevations::DIR_NAME}/list.json"
+            srtm_urls_file = "#{GeoElevation::DIR_NAME}/list.json"
             json = nil
 
-            if ! File.directory?(Elevations::DIR_NAME)
-                Dir.mkdir(Elevations::DIR_NAME)
+            if ! File.directory?(GeoElevation::DIR_NAME)
+                Dir.mkdir(GeoElevation::DIR_NAME)
             end
             if ! File.exist?(srtm_urls_file)
                 json = self::get_json()
@@ -72,7 +72,7 @@ module Elevations
             result = {}
             urls.each do |url|
                 file_name = url.split('/')[-1]
-                result[file_name] = url.gsub(Elevations::SRTM_BASE_URL, '').gsub('//', '/')
+                result[file_name] = url.gsub(GeoElevation::SRTM_BASE_URL, '').gsub('//', '/')
             end
             result
         end
@@ -80,8 +80,8 @@ module Elevations
         def self.get_json()
             result = {'srtm1' => {}, 'srtm3' => {}}
 
-            srtm_1_urls = self.retrieve("#{Elevations::SRTM_BASE_URL}/#{Elevations::SRTM1_URL}")
-            srtm_3_urls = self.retrieve("#{Elevations::SRTM_BASE_URL}/#{Elevations::SRTM3_URL}")
+            srtm_1_urls = self.retrieve("#{GeoElevation::SRTM_BASE_URL}/#{GeoElevation::SRTM1_URL}")
+            srtm_3_urls = self.retrieve("#{GeoElevation::SRTM_BASE_URL}/#{GeoElevation::SRTM3_URL}")
 
             {
                     'srtm1' => self.prepare_urls(srtm_1_urls, 'srtm1'),

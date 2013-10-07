@@ -3,7 +3,7 @@ require 'open-uri'
 
 require_relative 'utils'
 
-module Elevations
+module GeoElevation
 
     SRTM_BASE_URL = 'http://dds.cr.usgs.gov/srtm'
     SRTM1_URL     = '/version2_1/SRTM1/'
@@ -50,15 +50,15 @@ module Elevations
             end
 
             file_name = file.sub('.zip', '')
-            local_file_name = "#{Elevations::DIR_NAME}/#{file_name}"
+            local_file_name = "#{GeoElevation::DIR_NAME}/#{file_name}"
             if ! File.exist?(local_file_name)
                 puts "Retrieving #{file_name} because #{local_file_name} not found"
                 file_contents = open(url).read
-                file_contents = Elevations::Utils::unzip(file_contents, file_name)
+                file_contents = GeoElevation::Utils::unzip(file_contents, file_name)
                 open(local_file_name, 'wb').write(file_contents)
             end
 
-            file = Elevations::SrtmFile.new(local_file_name)
+            file = GeoElevation::SrtmFile.new(local_file_name)
 
             @cached_srtm_files[file_name] = file
 
@@ -68,7 +68,7 @@ module Elevations
         def find_file_name_and_url(file_name, srtm_version)
             for candidate_file_name in @files[srtm_version].keys
                 if candidate_file_name.index(file_name) == 0
-                    return [candidate_file_name, "#{Elevations::SRTM_BASE_URL}#{@files[srtm_version][candidate_file_name]}"]
+                    return [candidate_file_name, "#{GeoElevation::SRTM_BASE_URL}#{@files[srtm_version][candidate_file_name]}"]
                 end 
             end
 
@@ -170,12 +170,12 @@ module Elevations
             # Just in case...
             json = Retriever::prepare_folder
 
-            @file_name = Elevations::EGM2008_URL.split('/')[-1]
-            @local_file_name = "#{Elevations::DIR_NAME}/#{@file_name}".gsub(/.gz$/, '')
+            @file_name = GeoElevation::EGM2008_URL.split('/')[-1]
+            @local_file_name = "#{GeoElevation::DIR_NAME}/#{@file_name}".gsub(/.gz$/, '')
 
             if !File.exists?(@local_file_name)
-                puts "Downloading and ungzipping #{Elevations::EGM2008_URL}"
-                Elevations::Utils::ungzip(open(Elevations::EGM2008_URL), @local_file_name)
+                puts "Downloading and ungzipping #{GeoElevation::EGM2008_URL}"
+                GeoElevation::Utils::ungzip(open(GeoElevation::EGM2008_URL), @local_file_name)
             end
 
             # EGM files will not be loaded in memory because they are too big. 

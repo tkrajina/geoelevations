@@ -1,13 +1,13 @@
 require 'RMagick'
 include Magick
 
-require_relative 'elevation'
+require_relative 'geoelevation'
 
-module Elevations
+module GeoElevation
 
     def self.elevation_image(width, height, latitude_interval, longitude_interval, max_elevation)
         #(latitude_interval and latitude_interval.length == 0) or raise "Invalid latitude_interval: #{latitude_interval}"
-        srtm = Elevations::Srtm.new
+        srtm = GeoElevation::Srtm.new
         image = Image.new(width, height) { self.background_color='black' }
         for x in 0..height
             for y in 0..width
@@ -38,7 +38,7 @@ module Elevations
     # Return RMagick image with undulations. In black are the positive 
     # values in white the negative. Used for debugging.
     def self.world_undulation_image(width, height)
-        egm = Elevations::Undulations.new
+        egm = GeoElevation::Undulations.new
         min, max = 0, 0
 
         file_position = nil

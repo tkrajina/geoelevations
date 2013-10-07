@@ -12,7 +12,7 @@ Example usage:
 
     require 'elevation'
 
-    srtm = Elevations::Srtm.new
+    srtm = GeoElevations::Srtm.new
     elevation = srtm.get_elevation(45.276, 13.72)
     puts "Visnjan is #{elevation} meters above sea level"
 
@@ -58,7 +58,7 @@ Example library usage:
 
     require 'elevation'
 
-    egm = Elevations::Undulations.new
+    egm = GeoElevations::Undulations.new
     undulation = egm.get_undulation(45.276, 13.72)
     puts "The ideal WGS ellipsoid is #{undulation} above the actual geoid" 
 
