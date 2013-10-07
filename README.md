@@ -16,7 +16,7 @@ Example usage:
     elevation = srtm.get_elevation(45.276, 13.72)
     puts "Visnjan is #{elevation} meters above sea level"
 
-Here are a few example images (see image.rb) created with this API:
+Here are a few example images (see images.rb) created with this API:
 
 Istra and Trieste:
 
@@ -40,14 +40,14 @@ When you record a GPS track with a smartphone a lot of times the elevation graph
 
 ![GPX elevations](http://tkrajina.github.io/srtm.py/gpx_elevations.png)
 
-The red line is the data obtainer from SRTM. 
+The red line is the data obtained from SRTM. 
 
 The first 700 meters of the track is obviously a measurement error (common for smartphones), but the rest of the track is recorded cca 40 meters above the actual elevation.
 
-This is because the earth is an ellipsoid but rather a potato :) called geoid.
-The EGM2008 undulations data contains the difference between this potato-ellipsoid and the actual geoid.
+This is because the earth is **not** an ellipsoid but rather a potato :) called geoid.
+The EGM2008 undulations data contains the difference between this potato-geoid and the ideal ellipsoid.
 
-An example image of the world obtained with GeoElevations.rb:
+An example image of the world obtained with GeoElevations.rb from the EGM2008 dataset:
 
 ![undulations.png](http://tkrajina.github.io/geoelevations/undulations.png)
 
@@ -59,11 +59,10 @@ Example library usage:
 
     egm = Elevations::Egm2008.new
     undulation = egm.get_undulation(45.276, 13.72)
-    puts "The ideal ellipsoid is #{undulation} above the actual WGS Geoid" 
+    puts "The ideal WGS ellipsoid is #{undulation} above the actual geoid" 
 
 The result is:
 
-    The ideal ellipsoid is 45.049991607666016 above the actual WGS Geoid 
+    The ideal WGS ellipsoid is 45.049991607666016 above the actual geoid 
 
 ..and this is the actual error between the actual SRTM elevations and the GPS recordings from smartphones and GPSes without the EGM undulations database.
-
