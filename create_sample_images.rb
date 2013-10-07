@@ -1,8 +1,10 @@
-require_relative 'images'
+#!/usr/bin/ruby -Ilib
+
+require 'images'
 
 def save_image(image, file_name)
     image.write(file_name)
-    puts "Saves #{file_name}"
+    puts "Saved #{file_name}"
 end
 
 image = Elevations::elevation_image(400, 400, [45, 46], [13, 14], 300)
