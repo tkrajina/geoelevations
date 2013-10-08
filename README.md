@@ -1,6 +1,8 @@
 # Geoelevations.rb
 
-Geoelevations is a SRTM and EGM2008 undulations parser library for ruby.
+Geoelevations.rb is a SRTM and EGM2008 undulations parser library for ruby.
+
+Geoelevation.rb allows you to retrieve the **elevation** for any point in Earth (if present in the SRTM dataset) and the **Geoid undulation** (the difference between the WGS84 ellipsoid and the actual Earth size).
 
 [**SRTM**](http://www2.jpl.nasa.gov/srtm/): "The Shuttle Radar Topography Mission (SRTM) obtained elevation data on a near-global scale to generate the most complete high-resolution digital topographic database of Earth."
 
