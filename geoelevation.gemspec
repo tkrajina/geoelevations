@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'elevation'
+  s.name        = 'geoelevation'
   s.version     = '0.0.1'
   s.date        = '2013-10-07'
   s.summary     = "Geoelevation.rb is a SRTM and EGM2008 undulations parser library for ruby."
