@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "Geoelevations is a SRTM and EGM2008 undulations parser library for ruby."
   s.authors     = ["Tomo Krajina"]
   s.email       = 'tkrajina@gmail.to'
-  s.files       = ["lib/elevation.rb", "lib/images.rb", "lib/utils.rb"]
+  s.files       = ["lib/geoelevation.rb", "lib/images.rb", "lib/utils.rb"]
   s.homepage    = 'https://github.com/tkrajina/geoelevations'
   s.license       = 'Apache2.0'
 end
