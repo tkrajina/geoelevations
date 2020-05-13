@@ -1,5 +1,11 @@
 # Geoelevations.rb
 
+NOT MAINTAINED ANYMORE
+
+If you want to be the new mantainer - contact me.
+
+----------------------------------------------------------------------------------------------------
+
 Geoelevations.rb is a SRTM and EGM2008 undulations parser library for ruby.
 
 Geoelevation.rb allows you to retrieve the **elevation** for any point in Earth (if present in the SRTM dataset) and the **Geoid undulation** (the difference between the WGS84 ellipsoid and the actual Earth size).
